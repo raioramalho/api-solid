@@ -8,11 +8,15 @@ datasource db {
 }
 
 model User {
-  id            Int      @id @default(autoincrement())
+  id            Int       @id @default(autoincrement())
   name          String
-  email         String   @unique
+  email         String    @unique
   password_hash String
-  created_at    DateTime @default(now())
+  created_at    DateTime  @default(now())
+  check_ins     CheckIn[]
+
+  gym    Gym? @relation(fields: [gym_id], references: [id])
+  gym_id Int?
 
   @@map("users")
 }
@@ -21,6 +25,10 @@ model CheckIn {
   id          Int       @id @default(autoincrement())
   created_at  DateTime  @default(now())
   validate_at DateTime?
+  updated_at  DateTime  @updatedAt
+
+  user    User @relation(fields: [user_id], references: [id])
+  user_id Int
 
   @@map("check_ins")
 }
@@ -32,6 +40,7 @@ model Gym {
   phone       String?
   latitude    Decimal
   longitude   Decimal
+  User        User[]
 
   @@map("gyms")
 }
