@@ -13,7 +13,7 @@ export class UserService {
     })
 
     if (verify) {
-      throw new Error(`This email already exist!`)
+      throw new Error(`This email already exist`)
     }
 
     const password_hash = await hash(payload.password, env.PASS_SALT)
@@ -23,5 +23,19 @@ export class UserService {
       email: payload.email,
       password_hash,
     })
+  }
+
+  async update(id: number, payload: any) {
+    const verify = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!verify) {
+      throw new Error(`There's no user with this email`)
+    }
+
+    return await userRepositories.update(id, payload)
   }
 }
