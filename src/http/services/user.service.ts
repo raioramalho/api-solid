@@ -1,11 +1,10 @@
 import { env } from '@/env'
 import { prisma } from '@/lib/prisma'
 import { hash } from 'bcryptjs'
-import { CreateUser } from '../@types/createUser'
 import { userRepositories } from '@/repositories'
 
 export class UserService {
-  async create(payload: CreateUser) {
+  async create(payload: any) {
     const verify = await prisma.user.findUnique({
       where: {
         email: payload.email,
