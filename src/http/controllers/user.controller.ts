@@ -1,19 +1,19 @@
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { RegisterUser } from '../@types/registerUser'
-import { registerService } from '@/http/services'
+import { userService } from '../services'
+import { CreateUser } from '../@types/createUser'
 
-export class RegisterController {
+export class UserController {
   async create(request: FastifyRequest, reply: FastifyReply) {
     const registerBodySchema = z.object({
       name: z.string(),
       email: z.string(),
       password: z.string().min(6),
     })
-    const registerUser: RegisterUser = registerBodySchema.parse(request.body)
+    const createUser: CreateUser = registerBodySchema.parse(request.body)
 
     try {
-      const newUser = await registerService.create(registerUser)
+      const newUser = await userService.create(createUser)
       return reply.status(201).send(newUser)
     } catch (error: any) {
       return reply.status(409).send({

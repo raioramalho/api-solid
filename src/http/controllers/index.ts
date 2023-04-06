@@ -1,3 +1,3 @@
-import { RegisterController } from './register.controller'
+import { UserController } from './user.controller'
 
-export const registerController = new RegisterController()
+export const userController = new UserController()

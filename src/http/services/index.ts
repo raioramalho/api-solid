@@ -1,3 +1,3 @@
-import { RegisterService } from './register.service'
+import { UserService } from './user.service'
 
-export const registerService = new RegisterService()
+export const userService = new UserService()
