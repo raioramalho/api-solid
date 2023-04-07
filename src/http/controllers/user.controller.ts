@@ -27,12 +27,25 @@ export class UserController {
     }
   }
 
-  async select(request: FastifyRequest, reply: FastifyReply) {
+  async selectById(request: FastifyRequest, reply: FastifyReply) {
     const { id }: any = request.params
     try {
       return reply
         .status(StatusCodes.OK)
         .send(await userService.selectById(+id))
+    } catch (error: any) {
+      return reply.status(error?.code).send({
+        message: error?.message,
+      })
+    }
+  }
+
+  async selectByEmail(request: FastifyRequest, reply: FastifyReply) {
+    const { email }: any = request.params
+    try {
+      return reply
+        .status(StatusCodes.OK)
+        .send(await userService.selectByEmail(email))
     } catch (error: any) {
       return reply.status(error?.code).send({
         message: error?.message,

@@ -1,4 +1,0 @@
-### GET to /users
-GET http://localhost:3000/users/45
-Content-Type: application/json
-
