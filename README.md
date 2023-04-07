@@ -1,4 +1,4 @@
-# Backend com coneceito SOLID.
+# Backend com conceitos SOLID & DESING PATTERN.
 
 GymPass Style app.
 
@@ -8,7 +8,7 @@ GymPass Style app.
 
 --:[X] Deve ser possível se autenticar;
 
---:[X] Deve ser possível obtero perfil de um usuário logado;
+--:[X] Deve ser possível obter o perfil de um usuário logado;
 
 --:[X] Deve ser possível obter o número de check-ins realizados pelo usuário logado;
 
