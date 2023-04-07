@@ -1,5 +1,4 @@
 import { env } from '@/env'
-import { prisma } from '@/lib/prisma'
 import { hash } from 'bcryptjs'
 import { userRepositorie } from '@/repositories'
 import { errorHelper } from '@/http/helpers'
@@ -7,11 +6,7 @@ import { CustomError } from '@/http/@types/custom.error'
 
 export class UserService {
   async create(payload: any) {
-    const verify = await prisma.user.findUnique({
-      where: {
-        email: payload.email,
-      },
-    })
+    const verify = await userRepositorie.selectByEmail(payload.email)
 
     if (verify) {
       throw new CustomError(
@@ -30,11 +25,7 @@ export class UserService {
   }
 
   async selectById(id: number) {
-    const verify = await prisma.user.findUnique({
-      where: {
-        id,
-      },
-    })
+    const verify = await userRepositorie.selectById(id)
 
     if (!verify) {
       throw new CustomError(
@@ -47,11 +38,7 @@ export class UserService {
   }
 
   async selectByEmail(email: string) {
-    const verify = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    })
+    const verify = await userRepositorie.selectByEmail(email)
 
     if (!verify) {
       throw new CustomError(
@@ -64,11 +51,7 @@ export class UserService {
   }
 
   async update(id: number, payload: any) {
-    const verify = await prisma.user.findUnique({
-      where: {
-        id,
-      },
-    })
+    const verify = await userRepositorie.selectById(id)
 
     if (!verify) {
       throw new CustomError(
@@ -81,11 +64,7 @@ export class UserService {
   }
 
   async delete(id: number) {
-    const verify = await prisma.user.findUnique({
-      where: {
-        id,
-      },
-    })
+    const verify = await userRepositorie.selectById(id)
 
     if (!verify) {
       throw new CustomError(
