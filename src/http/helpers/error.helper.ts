@@ -14,4 +14,11 @@ export class ErrorHelper {
       message: `There's no user with this id`,
     }
   }
+
+  userNotValid() {
+    return {
+      code: `${StatusCodes.UNAUTHORIZED}`,
+      message: `Your user credrentials is not valid`,
+    }
+  }
 }

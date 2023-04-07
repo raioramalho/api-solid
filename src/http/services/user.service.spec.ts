@@ -34,7 +34,7 @@ describe('UserService Use Cases', async () => {
           email: 'test-user@gmail.com',
           password: '1q2w3e',
         }),
-    ).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(CustomError)
   })
 
   it('Should be possible get user by EMAIL and ID', async () => {
