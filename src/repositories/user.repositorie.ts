@@ -22,6 +22,11 @@ export class UserRepositorie {
   async selectById(id: number) {
     const user = await prisma.user.findUnique({
       where: { id },
+      include: {
+        gym: true,
+        check_ins: true,
+        _count: true,
+      },
     })
 
     return user
@@ -31,6 +36,11 @@ export class UserRepositorie {
     const user = await prisma.user.findUnique({
       where: {
         email,
+      },
+      include: {
+        gym: true,
+        check_ins: true,
+        _count: true,
       },
     })
 
