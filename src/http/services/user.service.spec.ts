@@ -8,7 +8,7 @@ import { CustomError } from '../@types/custom.error'
 describe('UserService Use Cases', async () => {
   await prisma.user.deleteMany({
     where: {
-      name: {
+      email: {
         startsWith: 'test',
       },
     },
