@@ -2,8 +2,8 @@ import { env } from '@/env'
 import { prisma } from '@/lib/prisma'
 import { hash } from 'bcryptjs'
 import { userRepositorie } from '@/repositories'
-import { errorHelper } from '@/helpers'
-import { CustomError } from '@/helpers/custom.error'
+import { errorHelper } from '@/http/helpers'
+import { CustomError } from '@/http/helpers/custom.error'
 
 export class UserService {
   async create(payload: any) {
