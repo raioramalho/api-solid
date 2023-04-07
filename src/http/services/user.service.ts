@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { hash } from 'bcryptjs'
 import { userRepositorie } from '@/repositories'
 import { errorHelper } from '@/http/helpers'
-import { CustomError } from '@/http/helpers/custom.error'
+import { CustomError } from '@/http/@types/custom.error'
 
 export class UserService {
   async create(payload: any) {
