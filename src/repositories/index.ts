@@ -1,3 +1,3 @@
-import { UserRepositories } from './user.repositories'
+import { UserRepositorie } from './user.repositorie'
 
-export const userRepositories = new UserRepositories()
+export const userRepositorie = new UserRepositorie()

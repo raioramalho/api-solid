@@ -1,7 +1,9 @@
 import { env } from '@/env'
 import { prisma } from '@/lib/prisma'
 import { hash } from 'bcryptjs'
-import { userRepositories } from '@/repositories'
+import { userRepositorie } from '@/repositories'
+import { errorHelper } from '@/helpers'
+import { CustomError } from '@/helpers/custom.error'
 
 export class UserService {
   async create(payload: any) {
@@ -12,16 +14,53 @@ export class UserService {
     })
 
     if (verify) {
-      throw new Error(`This email already exist`)
+      throw new CustomError(
+        errorHelper.userAreadyExists().message,
+        errorHelper.userAreadyExists().code,
+      )
     }
 
     const password_hash = await hash(payload.password, env.PASS_SALT)
 
-    return await userRepositories.create({
+    return await userRepositorie.create({
       name: payload.name,
       email: payload.email,
       password_hash,
     })
+  }
+
+  async selectById(id: number) {
+    const verify = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!verify) {
+      throw new CustomError(
+        errorHelper.userNotFound().message,
+        errorHelper.userNotFound().code,
+      )
+    }
+
+    return await userRepositorie.selectById(id)
+  }
+
+  async selectByEmail(email: string) {
+    const verify = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    })
+
+    if (!verify) {
+      throw new CustomError(
+        errorHelper.userNotFound().message,
+        errorHelper.userNotFound().code,
+      )
+    }
+
+    return await userRepositorie.selectByEmail(email)
   }
 
   async update(id: number, payload: any) {
@@ -32,9 +71,29 @@ export class UserService {
     })
 
     if (!verify) {
-      throw new Error(`There's no user with this email`)
+      throw new CustomError(
+        errorHelper.userNotFound().message,
+        errorHelper.userNotFound().code,
+      )
     }
 
-    return await userRepositories.update(id, payload)
+    return await userRepositorie.update(id, payload)
+  }
+
+  async delete(id: number) {
+    const verify = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!verify) {
+      throw new CustomError(
+        errorHelper.userNotFound().message,
+        errorHelper.userNotFound().code,
+      )
+    }
+
+    return await userRepositorie.delete(id)
   }
 }

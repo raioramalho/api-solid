@@ -13,6 +13,7 @@ model User {
   email         String    @unique
   password_hash String
   created_at    DateTime  @default(now())
+  updated_at    DateTime  @updatedAt
   check_ins     CheckIn[]
 
   gym    Gym? @relation(fields: [gym_id], references: [id])
@@ -41,6 +42,9 @@ model Gym {
   latitude    Decimal
   longitude   Decimal
   User        User[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@map("gyms")
 }

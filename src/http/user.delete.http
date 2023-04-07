@@ -1,0 +1,3 @@
+### DELETE to /users
+DELETE http://localhost:3000/users/3
+Content-Type: application/json
