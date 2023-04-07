@@ -3,6 +3,7 @@ import { User } from '@prisma/client'
 import { compare } from 'bcryptjs'
 import { userService } from '.'
 import { prisma } from '@/lib/prisma'
+import { CustomError } from '../@types/custom.error'
 
 describe('UserService Use Cases', async () => {
   await prisma.user.deleteMany({
@@ -44,5 +45,31 @@ describe('UserService Use Cases', async () => {
 
     const selectById = await userService.selectById(selectByEmail?.id)
     expect(selectById?.id).toBe(selectByEmail.id)
+  })
+
+  it('Should be possbile update user by ID', async () => {
+    const selectByEmail: any = await userService.selectByEmail(
+      'test-user@gmail.com',
+    )
+
+    const updateUser = await userService.update(selectByEmail.id, {
+      name: 'Alan',
+      password_hash: 'NovaSenha',
+    })
+
+    expect(updateUser.name).toBe('Alan')
+    expect(await compare('NovaSenha', updateUser.password_hash)).toBe(true)
+  })
+
+  it('Should be possible delete user by ID', async () => {
+    const selectByEmail: any = await userService.selectByEmail(
+      'test-user@gmail.com',
+    )
+    expect((await userService.delete(selectByEmail?.id)).email).toBe(
+      'test-user@gmail.com',
+    )
+    expect(
+      async () => await userService.selectById(selectByEmail.id),
+    ).rejects.toBeInstanceOf(CustomError)
   })
 })

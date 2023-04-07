@@ -76,7 +76,7 @@ export class UserService {
         errorHelper.userNotFound().code,
       )
     }
-
+    payload.password_hash = await hash(payload.password_hash, env.PASS_SALT)
     return await userRepositorie.update(id, payload)
   }
 
