@@ -27,15 +27,23 @@ GymPass Style app.
 ## RNs (Regras de negócio)
 
 --:[X] O Usuário não pode se cadastrar com e-mail existente;
+
 --:[ ] O Usuário não pode fazer 2 check-ins no mesmo dia;
+
 --:[ ] O Usuário não pode fazer check-in se não estiver perto (100m) da academia;
+
 --:[ ] O Check-in só pode ser validado até 20 minutos após criado;
+
 --:[ ] O Check-in só pode ser validado por administradores;
+
 --:[ ] A Academia só pode ser cadastrada por administradores;
 
 ## RNFs (Requisitos não-funcionais)
 
 --:[X] A senha do usuário precisa estar criptografada;
+
 --:[X] Os dados da aplicação precisam estar persistidos em um banco de dados;
+
 --:[ ] Todas as litas de dados precisam estar paginadas com 20 itens por página;
+
 --:[ ] O Usuário deve ser identificado por um JWT (JSON WEB TOKEN);
